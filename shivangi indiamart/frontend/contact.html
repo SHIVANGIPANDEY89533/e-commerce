@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" name="name" required />
+      <input type="email" placeholder="Email" name="email" required />
+      <textarea placeholder="Message" name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- code of js -->
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch('http://localhost:5000/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value
+        })
+      });
+      const data = await res.json();
+      alert(data.message);
+    });
+  </script>
+  
+</body>
+</html>
